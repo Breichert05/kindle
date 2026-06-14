@@ -17,7 +17,9 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-from kindle.views.acervo import AcervoListView
+from kindle.views.biblioteca.listar_biblioteca import MinhaBibliotecaListView
+from kindle.views.colecao.listar_colecoes import ColecaoListView
+from kindle.views.livro.listar_livros import AcervoListView
 from kindle.views.biblioteca.adicionar_livro import BibliotecaUsuarioCreateView
 from kindle.views.biblioteca.remover_livro import BibliotecaUsuarioDeleteView
 from kindle.views.home import IndexView
@@ -25,15 +27,19 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 from kindle.views.livro.detalhar_livro import LivroReadView
+from kindle.views.nota.listar_notas import NotaListView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("accounts/", include("django.contrib.auth.urls")),
     path("", IndexView.as_view(), name="index"),
     path("acervo/", AcervoListView.as_view(), name="acervo"),
+    path("acervo/read/<int:pk>", LivroReadView.as_view(), name="livro_read"),
+    path("biblioteca/", MinhaBibliotecaListView.as_view(), name="minha_biblioteca"),
     path("biblioteca/adicionar/<int:pk>/", BibliotecaUsuarioCreateView.as_view(), name="biblioteca_adicionar"),
     path("biblioteca/delete/<int:pk>/", BibliotecaUsuarioDeleteView.as_view(), name="biblioteca_delete"),
-    path("livro/read/<int:pk>", LivroReadView.as_view(), name="livro_read"),
+    path("colecoes/", ColecaoListView.as_view(), name="colecao_list"),
+    path("notas/", NotaListView.as_view(), name="nota_list"),
 ]
 
 urlpatterns += static(

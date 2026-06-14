@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Minhas Notas
+{% endblock %}
+
+{% block content %}
+
+<div class="container mt-4">
+    <h1>Minhas Notas</h1>
+    {% for nota in notas %}
+        <div class="card mb-3">
+            <div class="card-body">
+                <h5>{{ nota.titulo }}</h5>
+                <p>Livro: {{ nota.livro }}</p>
+                <p>Página: { nota.pagina }}</p>
+                <p>{{ nota.conteudo|truncatechars:200 }}</p>
+            </div>
+        </div>
+    {% empty %}
+        <div class="alert alert-info">
+            Nenhuma nota cadastrada.
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

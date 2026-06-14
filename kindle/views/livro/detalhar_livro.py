@@ -16,4 +16,9 @@ class LivroReadView(DetailView):
             livro=self.object
         ).exists()
 
+        context["voltar_url"] = self.request.META.get(
+            "HTTP_REFERER",
+            "/"
+        )
+
         return context

@@ -38,12 +38,9 @@
                 R$ {{ livro.preco }}
             </p>
             <hr>
-            <p>
-                {{ livro.descricao }}
-            </p>
+            <p>{{ livro.descricao }}</p>
             <div class="mt-4">
-
-                <a href="{% url 'acervo' %}"
+                <a href="{{ voltar_url }}"
                    class="btn btn-secondary">
                     Voltar
                 </a>

@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Minha Biblioteca
+{% endblock %}
+
+{% block content %}
+
+<div class="container mt-4">
+    <div class="row">
+        {% for item in biblioteca %}
+            <div class="col-md-3 mb-4">
+                <div class="card h-100">
+                    {% if item.livro.capa %}
+                        <img
+                            src="{{ item.livro.capa.url }}"
+                            class="card-img-top"
+                            style="height:300px;object-fit:cover;"
+                        >
+                    {% endif %}
+                    <div class="card-body">
+                        <h5>{{ item.livro.titulo }}</h5>
+                        <p>{{ item.livro.autor }}</p>
+                        <div class="mb-3">
+                            <span class="badge bg-primary">
+                                {{ item.get_status_leitura_display }}
+                            </span>
+                        </div>
+                        <a href="{% url 'livro_read' item.livro.id %}" class="btn btn-outline-primary w-100">
+                            Visualizar
+                        </a>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <div class="alert alert-info">
+                Sua biblioteca está vazia.
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

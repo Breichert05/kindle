@@ -38,24 +38,15 @@
                             {% endif %}
                         </div>
                         <div class="d-grid gap-2">
-                            <a
-                                href="{% url 'livro_read' livro.id %}"
-                                class="btn btn-outline-primary"
-                            >
+                            <a href="{% url 'livro_read' livro.id %}" class="btn btn-outline-primary">
                                 Visualizar
                             </a>
                             {% if livro.na_biblioteca %}
-                                <a
-                                    href="{% url 'biblioteca_delete' livro.biblioteca_id %}"
-                                    class="btn btn-danger"
-                                >
+                                <a href="{% url 'biblioteca_delete' livro.biblioteca_id %}" class="btn btn-danger">
                                     Remover da biblioteca
                                 </a>
                             {% else %}
-                                <a
-                                    href="{% url 'biblioteca_adicionar' livro.id %}"
-                                    class="btn btn-primary"
-                                >
+                                <a href="{% url 'biblioteca_adicionar' livro.id %}" class="btn btn-primary">
                                     Adicionar à biblioteca
                                 </a>
                             {% endif %}

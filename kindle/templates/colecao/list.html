@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Minhas Coleções
+{% endblock %}
+
+{% block content %}
+
+<div class="container mt-4">
+    <h1>Minhas Coleções</h1>
+    <div class="row">
+        {% for colecao in colecoes %}
+            <div class="col-md-4 mb-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            {{ colecao.nome }}
+                        </h5>
+                        <p>
+                            {{ colecao.descricao }}
+                        </p>
+                        <p>
+                            Livros:
+                            {{ colecao.livros.count }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <div class="alert alert-info">
+                Nenhuma coleção cadastrada.
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

@@ -22,6 +22,7 @@ class Livro(BaseModel):
     )
     genero = models.CharField(max_length=100, choices=GeneroLivro.choices)
     ativo = models.BooleanField(default=True)
+    capa = models.ImageField(upload_to='capas/', null=True, blank=True)
 
     def __str__(self):
         return self.titulo

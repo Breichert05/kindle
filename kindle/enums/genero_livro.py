@@ -6,6 +6,7 @@ class GeneroLivro(TextChoices):
     FANTASIA = 'FANTASIA', 'Fantasia'
     ROMANCE = 'ROMANCE', 'Romance'
     MISTERIO = 'MISTERIO', 'Mistério'
+    DRAMA = 'DRAMA', 'Drama'
     HISTORICO = 'HISTORICO', 'Histórico'
     BIOGRAFIA = 'BIOGRAFIA', 'Biografia'
     TERROR = 'TERROR', 'Terror'

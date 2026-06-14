@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% block title %}
+    Acervo de Livros
+{% endblock %}
+{% block content %}
+<div class="container mt-4">
+    {% if livros %}
+        <div class="d-flex overflow-auto gap-3 pb-3">
+            {% for livro in livros %}
+                <div class="card flex-shrink-0" style="width: 18rem;">
+                    {% if livro.capa %}
+                        <img
+                            src="{{ livro.capa.url }}"
+                            class="card-img-top"
+                            alt="{{ livro.titulo }}"
+                            style="height: 300px; object-fit: cover;"
+                        >
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            {{ livro.titulo }}
+                        </h5>
+                        <p class="card-text">
+                            {{ livro.autor }}
+                        </p>
+                        <p class="card-text">
+                            {{ livro.get_genero_display }}
+                        </p>
+                        <div class="mb-3">
+                            {% if livro.na_biblioteca %}
+                                <span class="badge bg-success">
+                                    Na sua biblioteca
+                                </span>
+                            {% else %}
+                                <span class="badge bg-secondary">
+                                    Não adicionado
+                                </span>
+                            {% endif %}
+                        </div>
+                        <div class="d-grid gap-2">
+                            <a
+                                href="{% url 'livro_read' livro.id %}"
+                                class="btn btn-outline-primary"
+                            >
+                                Visualizar
+                            </a>
+                            {% if livro.na_biblioteca %}
+                                <a
+                                    href="{% url 'biblioteca_delete' livro.biblioteca_id %}"
+                                    class="btn btn-danger"
+                                >
+                                    Remover da biblioteca
+                                </a>
+                            {% else %}
+                                <a
+                                    href="{% url 'biblioteca_adicionar' livro.id %}"
+                                    class="btn btn-primary"
+                                >
+                                    Adicionar à biblioteca
+                                </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="alert alert-info">
+            Nenhum livro cadastrado.
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

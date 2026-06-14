@@ -19,6 +19,9 @@ class BibliotecaUsuario(BaseModel):
     def clean(self):
         super().clean()
 
+        if not self.usuario_id or not self.livro_id:
+            return
+
         registro = BibliotecaUsuario.objects.filter(
             usuario=self.usuario,
             livro=self.livro

@@ -15,8 +15,28 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.contrib.auth.views import LoginView
+from django.urls import path, include
+
+from kindle.views.acervo import AcervoListView
+from kindle.views.biblioteca.adicionar_livro import BibliotecaUsuarioCreateView
+from kindle.views.biblioteca.remover_livro import BibliotecaUsuarioDeleteView
+from kindle.views.home import IndexView
+from django.conf import settings
+from django.conf.urls.static import static
+
+from kindle.views.livro.detalhar_livro import LivroReadView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path("", IndexView.as_view(), name="index"),
+    path("acervo/", AcervoListView.as_view(), name="acervo"),
+    path("biblioteca/adicionar/<int:pk>/", BibliotecaUsuarioCreateView.as_view(), name="biblioteca_adicionar"),
+    path("biblioteca/delete/<int:pk>/", BibliotecaUsuarioDeleteView.as_view(), name="biblioteca_delete"),
+    path("livro/read/<int:pk>", LivroReadView.as_view(), name="livro_read"),
 ]
+
+urlpatterns += static(
+    settings.MEDIA_URL,
+    document_root=settings.MEDIA_ROOT
+)

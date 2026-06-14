@@ -7,23 +7,31 @@
 {% block content %}
 
 <div class="container mt-4">
-    <h1>Minhas Coleções</h1>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <a href="{% url 'colecao_create' %}" class="btn btn-success btn-lg">
+            <i class="bi bi-plus-lg"></i>
+            Nova Coleção
+        </a>
+    </div>
     <div class="row">
         {% for colecao in colecoes %}
-            <div class="col-md-4 mb-3">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">
-                            {{ colecao.nome }}
-                        </h5>
-                        <p>
-                            {{ colecao.descricao }}
-                        </p>
-                        <p>
-                            Livros:
-                            {{ colecao.livros.count }}
-                        </p>
+            <div class="card h-100">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <strong>{{ colecao.nome }}</strong>
+                    <div class="dropdown">
+                        <button class="btn btn-sm btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown">
+                            Ações
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="{% url 'colecao_read' colecao.id %}">Visualizar</a></li>
+                            <li><a class="dropdown-item" href="{% url 'colecao_update' colecao.id %}">Editar</a></li>
+                            <li><a class="dropdown-item text-danger" href="{% url 'colecao_delete' colecao.id %}">Excluir</a></li>
+                        </ul>
                     </div>
+                </div>
+                <div class="card-body">
+                    <p>{{ colecao.descricao }}</p>
+                    <p>Livros: {{ colecao.livros.count }}</p>
                 </div>
             </div>
         {% empty %}

@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Nova Nota
+{% endblock %}
+
+{% block content %}
+
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-body">
+            <p>
+                <strong>Livro:</strong>
+                {{ livro.titulo }}
+            </p>
+            <form method="post">
+                {% csrf_token %}
+                <div class="mb-3">
+                    {{ form.titulo.label_tag }}
+                    {{ form.titulo }}
+                </div>
+                <div class="mb-3">
+                    {{ form.pagina.label_tag }}
+                    {{ form.pagina }}
+                </div>
+                <div class="mb-3">
+                    {{ form.conteudo.label_tag }}
+                    {{ form.conteudo }}
+                </div>
+                <div class="d-flex gap-2">
+                    <button
+                        type="submit"
+                        class="btn btn-success"
+                    >
+                        Salvar Nota
+                    </button>
+                    <a
+                        href="{% url 'livro_read' livro.id %}"
+                        class="btn btn-outline-secondary"
+                    >
+                        Cancelar
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

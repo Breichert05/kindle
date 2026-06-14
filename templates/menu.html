@@ -12,7 +12,10 @@
           <a class="nav-link active" aria-current="page" href="{% url 'index' %}">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Link</a>
+          <a href="{% url 'acervo' %}" class="btn btn-light">
+              Ver Acervo
+          </a>
+        </li>
       </ul>
       <div class="d-flex align-items-center ms-3">
         {% if user.is_authenticated %}

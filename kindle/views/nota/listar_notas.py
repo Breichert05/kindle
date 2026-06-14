@@ -12,4 +12,8 @@ class NotaListView(LoginRequiredMixin, ListView):
     def get_queryset(self):
         return Nota.objects.filter(
             usuario=self.request.user
+        ).select_related(
+            "livro"
+        ).order_by(
+            "-data_criacao"
         )

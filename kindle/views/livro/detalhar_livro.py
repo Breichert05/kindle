@@ -11,13 +11,20 @@ class LivroReadView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        context["na_biblioteca"] = BibliotecaUsuario.objects.filter(
+        registro_biblioteca = BibliotecaUsuario.objects.filter(
             usuario=self.request.user,
             livro=self.object
-        ).exists()
+        ).first()
 
-        context["voltar_url"] = self.request.META.get(
-            "HTTP_REFERER",
+        self.object.na_biblioteca = registro_biblioteca is not None
+        self.object.biblioteca_id = (
+            registro_biblioteca.id
+            if registro_biblioteca
+            else None
+        )
+
+        context["voltar_url"] = self.request.GET.get(
+            "next",
             "/"
         )
 

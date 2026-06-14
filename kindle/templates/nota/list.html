@@ -7,20 +7,62 @@
 {% block content %}
 
 <div class="container mt-4">
-    <h1>Minhas Notas</h1>
-    {% for nota in notas %}
-        <div class="card mb-3">
-            <div class="card-body">
-                <h5>{{ nota.titulo }}</h5>
-                <p>Livro: {{ nota.livro }}</p>
-                <p>Página: { nota.pagina }}</p>
-                <p>{{ nota.conteudo|truncatechars:200 }}</p>
+    <div class="row">
+        {% for nota in notas %}
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <strong>
+                            {{ nota.titulo }}
+                        </strong>
+                        <div class="dropdown">
+                            <button
+                                class="btn btn-sm btn-outline-secondary dropdown-toggle"
+                                type="button"
+                                data-bs-toggle="dropdown"
+                            >
+                                Ações
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a
+                                        class="dropdown-item"
+                                        href="{% url 'nota_update' nota.id %}"
+                                    >
+                                        Editar
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a
+                                        class="dropdown-item text-danger"
+                                        href="{% url 'nota_delete' nota.id %}"
+                                    >
+                                        Excluir
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <p class="text-muted">{{ nota.livro.titulo }}</p>
+                        <span class="badge bg-primary">
+                            Página {{ nota.pagina }}
+                        </span>
+                        <hr>
+                        <p>{{ nota.conteudo|truncatechars:200 }}</p>
+                    </div>
+                    <div class="card-footer text-muted">
+
+                        {{ nota.data_criacao|date:"d/m/Y H:i" }}
+                    </div>
+                </div>
             </div>
-        </div>
-    {% empty %}
-        <div class="alert alert-info">
-            Nenhuma nota cadastrada.
-        </div>
-    {% endfor %}
+        {% empty %}
+            <div class="alert alert-info">
+                Nenhuma nota cadastrada.
+            </div>
+        {% endfor %}
+    </div>
 </div>
 {% endblock %}

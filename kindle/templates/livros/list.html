@@ -38,7 +38,7 @@
                             {% endif %}
                         </div>
                         <div class="d-grid gap-2">
-                            <a href="{% url 'livro_read' livro.id %}" class="btn btn-outline-primary">
+                            <a href="{% url 'livro_read' livro.id %}?next={{ request.path }}" class="btn btn-outline-primary">
                                 Visualizar
                             </a>
                             {% if livro.na_biblioteca %}

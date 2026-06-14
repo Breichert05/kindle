@@ -18,16 +18,58 @@
                             style="height:300px;object-fit:cover;"
                         >
                     {% endif %}
-                    <div class="card-body">
+                    <div class="card-body d-grid gap-2">
                         <h5>{{ item.livro.titulo }}</h5>
                         <p>{{ item.livro.autor }}</p>
-                        <div class="mb-3">
-                            <span class="badge bg-primary">
-                                {{ item.get_status_leitura_display }}
-                            </span>
-                        </div>
-                        <a href="{% url 'livro_read' item.livro.id %}" class="btn btn-outline-primary w-100">
+                        <form
+                            method="post"
+                            action="{% url 'biblioteca_update' item.id %}"
+                        >
+                            {% csrf_token %}
+                            <input
+                                type="hidden"
+                                name="next"
+                                value="{{ request.path }}"
+                            >
+                            <label class="form-label">
+                                Status da leitura
+                            </label>
+                            <select
+                                name="status_leitura"
+                                class="form-select"
+                                onchange="this.form.submit();"
+                            >
+                                {% for value, label in status_choices %}
+                                    {% if item.status_leitura == value %}
+                                        <option value="{{ value }}" selected>
+                                            {{ label }}
+                                        </option>
+                                    {% else %}
+                                        <option value="{{ value }}">
+                                            {{ label }}
+                                        </option>
+                                    {% endif %}
+                                {% endfor %}
+                            </select>
+                        </form>
+                        <a
+                            href="{% url 'livro_read' item.livro.id %}"
+                            class="btn btn-outline-primary w-100"
+                        >
                             Visualizar
+                        </a>
+                        <a
+                            href="{% url 'biblioteca_delete' item.id %}?next={{ request.path }}"
+                            class="btn btn-danger"
+                        >
+                            Remover da Biblioteca
+                        </a>
+                        <a
+                            href="{% url 'nota_create' item.id %}?next={{ request.path }}"
+                            class="btn btn-info"
+                        >
+                            <i class="bi bi-patch-plus" style="color:white"></i>
+                            Criar Nota
                         </a>
                     </div>
                 </div>

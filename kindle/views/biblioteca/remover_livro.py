@@ -8,4 +8,10 @@ from kindle.models import BibliotecaUsuario
 class BibliotecaUsuarioDeleteView(LoginRequiredMixin, DeleteView):
     model = BibliotecaUsuario
     template_name = "biblioteca/delete.html"
-    success_url = reverse_lazy("acervo")
+
+    def get_success_url(self):
+        return self.request.GET.get(
+            "next"
+        ) or self.request.POST.get(
+            "next"
+        ) or reverse_lazy("acervo")

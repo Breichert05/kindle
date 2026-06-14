@@ -40,10 +40,37 @@
             <hr>
             <p>{{ livro.descricao }}</p>
             <div class="mt-4">
-                <a href="{{ voltar_url }}"
-                   class="btn btn-secondary">
-                    Voltar
-                </a>
+                <div class="mb-3">
+                    {% if livro.na_biblioteca %}
+                        <span class="badge bg-success">
+                            Na sua biblioteca
+                        </span>
+                    {% else %}
+                        <span class="badge bg-secondary">
+                            Não adicionado
+                        </span>
+                    {% endif %}
+                </div>
+                <div class="d-flex align-items-center gap-2">
+                    <a href="{{ voltar_url }}" class="btn btn-secondary">
+                        Voltar
+                    </a>
+                    {% if livro.na_biblioteca %}
+                        <a
+                            href="{% url 'biblioteca_delete' livro.biblioteca_id %}?next={{ request.path }}"
+                            class="btn btn-danger"
+                        >
+                            Remover da Biblioteca
+                        </a>
+                    {% else %}
+                        <a
+                            href="{% url 'biblioteca_adicionar' livro.id %}?next={{ request.path }}"
+                            class="btn btn-primary"
+                        >
+                            Adicionar à Biblioteca
+                        </a>
+                    {% endif %}
+                </div>
             </div>
         </div>
     </div>

@@ -5,7 +5,7 @@ Remover da Biblioteca
 {% block content %}
 <div class="container mt-4">
     <div class="card">
-        <div class="card-body">
+        <div class="card-body text-center">
             <p>
                 Tem certeza que deseja remover este livro da sua biblioteca?
             </p>
@@ -16,18 +16,25 @@ Remover da Biblioteca
             </p>
             <form method="post">
                 {% csrf_token %}
-                <button
-                    type="submit"
-                    class="btn btn-danger"
+                <input
+                    type="hidden"
+                    name="next"
+                    value="{{ request.GET.next }}"
                 >
-                    Confirmar Remoção
-                </button>
-                <a
-                    href="{% url 'acervo' %}"
-                    class="btn btn-secondary"
-                >
-                    Cancelar
-                </a>
+                <div class="d-flex justify-content-center gap-2">
+                    <button
+                        type="submit"
+                        class="btn btn-danger"
+                    >
+                        Confirmar Remoção
+                    </button>
+                    <a
+                        href="{{ request.GET.next|default:'/' }}"
+                        class="btn btn-outline-secondary"
+                    >
+                        Cancelar
+                    </a>
+                </div>
             </form>
         </div>
     </div>

@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Login
+{% endblock title %}
+
+{% block content %}
+
+<div class="container mt-4">
+    <h1>Login</h1>
+    {% if form.errors %}
+        <div class="alert alert-danger">
+            Usuário ou senha inválidos.
+        </div>
+    {% endif %}
+    <form id="login"
+          action="{% url 'login' %}"
+          method="post">
+        {% csrf_token %}
+        {% for campo in form %}
+            <div class="mb-3">
+                {{ campo.label_tag }}
+                {{ campo }}
+            </div>
+        {% endfor %}
+        <input
+            type="hidden"
+            name="next"
+            value="{{ next }}"
+        >
+        <button
+            type="submit"
+            class="btn btn-primary"
+        >
+            Entrar
+        </button>
+        <a
+            class="btn btn-secondary"
+            href="{% url 'password_reset' %}"
+        >
+            Esqueci minha senha
+        </a>
+    </form>
+</div>
+
+{% endblock content %}

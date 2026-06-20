@@ -7,14 +7,17 @@ from kindle.models import BibliotecaUsuario
 
 class BibliotecaUsuarioUpdateView(LoginRequiredMixin, UpdateView):
     model = BibliotecaUsuario
-    fields = ["status_leitura"]
+    fields = ["status_leitura", "favorito"]
 
     def post(self, request, *args, **kwargs):
         biblioteca = self.get_object()
 
-        biblioteca.status_leitura = request.POST.get(
-            "status_leitura"
-        )
+        if request.POST.get("toggle_favorito"):
+            biblioteca.favorito = not biblioteca.favorito
+        else:
+            biblioteca.status_leitura = request.POST.get(
+                "status_leitura"
+            )
 
         biblioteca.save()
 

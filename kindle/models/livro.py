@@ -3,6 +3,7 @@ from django.core.validators import MinValueValidator
 from django.db import models
 
 from kindle.enums import GeneroLivro
+from kindle.managers import LivroManager
 from kindle.models import BaseModel
 
 
@@ -23,6 +24,8 @@ class Livro(BaseModel):
     genero = models.CharField(max_length=100, choices=GeneroLivro.choices)
     ativo = models.BooleanField(default=True)
     capa = models.ImageField(upload_to='capas/', null=True, blank=True)
+
+    objects = LivroManager()
 
     def __str__(self):
         return self.titulo

@@ -7,7 +7,6 @@ from kindle.models import Livro, BibliotecaUsuario
 class AcervoListView(LoginRequiredMixin, ListView):
     model = Livro
     template_name = 'livros/list.html'
-    queryset = Livro.objects.all()
     context_object_name = 'livros'
 
     def get_queryset(self):
@@ -18,7 +17,12 @@ class AcervoListView(LoginRequiredMixin, ListView):
             )
         }
 
-        livros = Livro.objects.all()
+        livros = Livro.objects.buscar(
+            termo=self.request.GET.get("q"),
+            genero=self.request.GET.get("genero")
+        )
+
+        livros = list(livros)
 
         for livro in livros:
             livro.na_biblioteca = livro.id in bibliotecas

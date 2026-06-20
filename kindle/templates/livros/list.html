@@ -4,6 +4,20 @@
 {% endblock %}
 {% block content %}
 <div class="container mt-4">
+    <form method="get" class="row g-2 mb-4">
+        <div class="col-md-5">
+            <input type="text" name="q" value="{{ request.GET.q }}" class="form-control" placeholder="Buscar por título ou autor">
+        </div>
+
+        <div class="col-md-2 d-grid">
+            <button type="submit" class="btn btn-primary">Filtrar</button>
+        </div>
+        {% if perms.kindle.add_livro %}
+            <div class="col-md-2 d-grid">
+                <a href="{% url 'livro_create' %}" class="btn btn-success">Novo livro</a>
+            </div>
+        {% endif %}
+    </form>
     {% if livros %}
         <div class="d-flex overflow-auto gap-3 pb-3">
             {% for livro in livros %}
@@ -50,6 +64,27 @@
                                     Adicionar à biblioteca
                                 </a>
                             {% endif %}
+                            <div class="dropdown">
+                            <button
+                                class="btn btn-sm btn-outline-secondary dropdown-toggle"
+                                type="button"
+                                data-bs-toggle="dropdown"
+                            >
+                                Ações
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    {% if perms.kindle.change_livro %}
+                                        <a href="{% url 'livro_update' livro.id %}" class="dropdown-item">Editar</a>
+                                    {% endif %}
+                                </li>
+                                <li>
+                                    {% if perms.kindle.delete_livro %}
+                                        <a href="{% url 'livro_delete' livro.id %}" class="dropdown-item text-danger">Excluir</a>
+                                     {% endif %}
+                                </li>
+                            </ul>
+                        </div>
                         </div>
                     </div>
                 </div>

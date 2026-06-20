@@ -61,6 +61,16 @@
                 </div>
             </div>
         </div>
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 text-center">
+                <div class="card-body">
+                    <h2>{{ metas_ativas|default:0 }}</h2>
+                    <h5 class="card-title">Metas Ativas</h5>
+                    <p class="card-text">Metas de leitura em andamento.</p>
+                    <a href="{% url 'meta_list' %}" class="btn btn-secondary">Ver Metas</a>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %}

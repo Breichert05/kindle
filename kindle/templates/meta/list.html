@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block title %}Metas de Leitura{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <a href="{% url 'meta_create' %}" class="btn btn-primary">Nova Meta</a>
+    </div>
+
+    <div class="card shadow-sm">
+        <div class="card-body">
+            {% if metas %}
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Título</th>
+                                <th>Qtd. Livros</th>
+                                <th>Data Início</th>
+                                <th>Data Término</th>
+                                <th>Concluida</th>
+                                <th class="text-center">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for meta in metas %}
+                                <tr>
+                                    <td><strong>{{ meta.titulo }}</strong></td>
+                                    <td>{{ meta.quantidade_livros }}</td>
+                                    <td>{{ meta.data_inicio|date:"d/m/Y" }}</td>
+                                    <td>{{ meta.data_termino|date:"d/m/Y" }}</td>
+                                    <td>{{ meta.concluida }}</td>
+                                    <td>
+                                        <div class="d-flex gap-2 justify-content-center">
+                                            <a href="{% url 'meta_update' meta.id %}" class="btn btn-sm btn-outline-secondary">Editar</a>
+                                            <a href="{% url 'meta_delete' meta.id %}" class="btn btn-sm btn-outline-danger">Excluir</a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% else %}
+                <div class="alert alert-info mb-0">Nenhuma meta cadastrada.</div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

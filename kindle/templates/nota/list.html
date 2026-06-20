@@ -25,19 +25,13 @@
                             </button>
                             <ul class="dropdown-menu">
                                 <li>
-                                    <a
-                                        class="dropdown-item"
-                                        href="{% url 'nota_update' nota.id %}"
-                                    >
+                                    <a class="dropdown-item" href="{% url 'nota_update' nota.id %}">
                                         Editar
                                     </a>
                                 </li>
 
                                 <li>
-                                    <a
-                                        class="dropdown-item text-danger"
-                                        href="{% url 'nota_delete' nota.id %}"
-                                    >
+                                    <a class="dropdown-item text-danger" href="{% url 'nota_delete' nota.id %}">
                                         Excluir
                                     </a>
                                 </li>
@@ -53,8 +47,12 @@
                         <p>{{ nota.conteudo|truncatechars:200 }}</p>
                     </div>
                     <div class="card-footer text-muted">
-
                         {{ nota.data_criacao|date:"d/m/Y H:i" }}
+                        <div class="d-grid">
+                            <a href="{% url 'nota_read' nota.id %}" class="btn btn-outline-primary">
+                                Visualizar
+                            </a>
+                    </div>
                     </div>
                 </div>
             </div>

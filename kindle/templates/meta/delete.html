@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block title %}Excluir Meta{% endblock %}
+{% block content %}
+<p>Tem certeza que deseja excluir a meta &quot;{{ object.titulo }}&quot;?</p>
+<form method="post">
+    {% csrf_token %}
+    <button class="btn btn-danger" type="submit">Excluir</button>
+</form>
+{% endblock %}

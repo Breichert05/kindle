@@ -1,7 +1,7 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import TemplateView
 
-from kindle.models import BibliotecaUsuario, Colecao, Nota
+from kindle.models import BibliotecaUsuario, Colecao, Nota, MetaLeitura
 
 
 class IndexView(LoginRequiredMixin, TemplateView):
@@ -20,6 +20,16 @@ class IndexView(LoginRequiredMixin, TemplateView):
 
         context["total_notas"] = Nota.objects.filter(
             usuario=self.request.user
+        ).count()
+
+        context["total_lidos"] = BibliotecaUsuario.objects.filter(
+            usuario=self.request.user,
+            status_leitura="LIDO"
+        ).count()
+
+        context["metas_ativas"] = MetaLeitura.objects.filter(
+            usuario=self.request.user,
+            concluida=False
         ).count()
 
         return context

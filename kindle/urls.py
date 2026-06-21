@@ -17,6 +17,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+from kindle.views.avaliacao.criar_avaliacao import AvaliacaoCreateView
+from kindle.views.avaliacao.deletar_avaliacao import AvaliacaoDeleteView
+from kindle.views.avaliacao.editar_avaliacao import AvaliacaoUpdateView
+from kindle.views.avaliacao.listar_avaliacoes import AvaliacaoListView
 from kindle.views.biblioteca.editar_livro import BibliotecaUsuarioUpdateView
 from kindle.views.biblioteca.listar_biblioteca import BibliotecaListView
 from kindle.views.colecao.criar_colecao import ColecaoCreateView
@@ -56,10 +60,11 @@ urlpatterns = [
     path('acervo/update/<int:pk>/', LivroUpdateView.as_view(), name='livro_update'),
     path('acervo/delete/<int:pk>/', LivroDeleteView.as_view(), name='livro_delete'),
 
-    path('biblioteca/', BibliotecaListView.as_view(), name='minha_biblioteca'),
-    path('biblioteca/create/<int:pk>/', BibliotecaUsuarioCreateView.as_view(), name='biblioteca_adicionar'),
+    path('biblioteca/', BibliotecaListView.as_view(), name='biblioteca_list'),
+    path('biblioteca/create/<int:pk>/', BibliotecaUsuarioCreateView.as_view(), name='biblioteca_create'),
     path('biblioteca/update/<int:pk>/', BibliotecaUsuarioUpdateView.as_view(), name='biblioteca_update'),
     path('biblioteca/delete/<int:pk>/', BibliotecaUsuarioDeleteView.as_view(), name='biblioteca_delete'),
+    # path('biblioteca/historico/', HistoricoLeituraView.as_view(), name='historico_leitura'),
 
     path('colecao/', ColecaoListView.as_view(), name='colecao_list'),
     path('colecao/create/', ColecaoCreateView.as_view(), name='colecao_create'),
@@ -77,6 +82,11 @@ urlpatterns = [
     path('metas/create/', MetaCreateView.as_view(), name='meta_create'),
     path('metas/update/<int:pk>/', MetaUpdateView.as_view(), name='meta_update'),
     path('metas/delete/<int:pk>/', MetaDeleteView.as_view(), name='meta_delete'),
+
+    path('avaliacoes/', AvaliacaoListView.as_view(), name='avaliacao_list'),
+    path('avaliacoes/create/<int:pk>/', AvaliacaoCreateView.as_view(), name='avaliacao_create'),
+    path('avaliacoes/update/<int:pk>/', AvaliacaoUpdateView.as_view(), name='avaliacao_update'),
+    path('avaliacoes/delete/<int:pk>/', AvaliacaoDeleteView.as_view(), name='avaliacao_delete'),
 ]
 
 urlpatterns += static(

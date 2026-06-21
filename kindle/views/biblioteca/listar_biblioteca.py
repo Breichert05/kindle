@@ -11,15 +11,19 @@ class BibliotecaListView(LoginRequiredMixin, ListView):
     context_object_name = "biblioteca"
 
     def get_queryset(self):
-        return BibliotecaUsuario.objects.filter(
+        queryset = BibliotecaUsuario.objects.filter(
             usuario=self.request.user
         ).select_related(
             "livro"
         )
 
+        if self.request.GET.get("favoritos"):
+            queryset = queryset.filter(favorito=True)
+
+        return queryset
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-
         context["status_choices"] = StatusLeitura.choices
-
+        context["mostrar_favoritos"] = self.request.GET.get("favoritos")
         return context

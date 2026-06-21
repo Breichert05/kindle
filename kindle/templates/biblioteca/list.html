@@ -7,6 +7,19 @@
 {% block content %}
 
 <div class="container mt-4">
+    <div class="mb-4">
+        {% if mostrar_favoritos %}
+            <a href="{% url 'biblioteca_list' %}" class="btn btn-danger">
+                <i class="bi bi-heart-fill"></i>
+                Exibindo Favoritos
+            </a>
+        {% else %}
+            <a href="?favoritos=1" class="btn btn-outline-danger">
+                <i class="bi bi-heart"></i>
+                Mostrar Favoritos
+            </a>
+        {% endif %}
+    </div>
     <div class="row">
         {% for item in biblioteca %}
             <div class="col-md-3 mb-4">
@@ -24,7 +37,7 @@
 
                             <form method="post" action="{% url 'biblioteca_update' item.id %}">
                                 {% csrf_token %}
-                                <input type="hidden" name="next" value="{{ request.path }}">
+                                <input type="hidden" name="next" value="{{ request.get_full_path }}">
                                 <input type="hidden" name="toggle_favorito" value="1">
 
                                 <button type="submit" class="btn btn-link p-0 border-0">
@@ -46,7 +59,7 @@
                             <input
                                 type="hidden"
                                 name="next"
-                                value="{{ request.path }}"
+                                value="{{ request.get_full_path }}"
                             >
                             <label class="form-label">
                                 Status da leitura
@@ -72,13 +85,38 @@
                         <a href="{% url 'livro_read' item.livro.id %}" class="btn btn-outline-primary w-100">
                             Visualizar
                         </a>
-                        <a href="{% url 'biblioteca_delete' item.id %}?next={{ request.path }}" class="btn btn-danger">
-                            Remover da Biblioteca
-                        </a>
-                        <a href="{% url 'nota_create' item.id %}?next={{ request.path }}" class="btn btn-info">
-                            <i class="bi bi-patch-plus" style="color:white"></i>
-                            Criar Nota
-                        </a>
+                        <div class="dropdown w-100">
+                            <button
+                                class="btn btn-outline-secondary dropdown-toggle w-100"
+                                type="button"
+                                data-bs-toggle="dropdown"
+                            >
+                                Ações
+                            </button>
+                            <ul class="dropdown-menu w-100">
+                                <li>
+                                    <a href="{% url 'nota_create' item.id %}?next={{ request.path }}" class="dropdown-item text-primary">
+                                        <i class="bi bi-journal-plus"></i>
+                                        Criar Nota
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{% url 'avaliacao_create' item.livro.id %}?next={{ request.path }}" class="dropdown-item text-warning">
+                                        <i class="bi bi-star"></i>
+                                        Adicionar Avaliação
+                                    </a>
+                                </li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li>
+                                    <a href="{% url 'biblioteca_delete' item.id %}?next={{ request.path }}" class="dropdown-item text-danger">
+                                        <i class="bi bi-trash"></i>
+                                        Remover da Biblioteca
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>

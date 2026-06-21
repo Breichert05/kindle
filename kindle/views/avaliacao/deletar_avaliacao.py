@@ -1,0 +1,11 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.urls import reverse_lazy
+from django.views.generic import DeleteView
+
+from kindle.models import Avaliacao
+
+
+class AvaliacaoDeleteView(LoginRequiredMixin, DeleteView):
+    model = Avaliacao
+    template_name = 'avaliacao/delete.html'
+    success_url = reverse_lazy('avaliacao_list')

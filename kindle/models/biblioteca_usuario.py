@@ -3,6 +3,7 @@ from django.core.exceptions import ValidationError
 from django.db import models
 
 from kindle.enums import StatusLeitura
+from kindle.managers.biblioteca_manager import BibliotecaManager
 from kindle.models import BaseModel, Livro
 
 
@@ -12,6 +13,8 @@ class BibliotecaUsuario(BaseModel):
     data_adicao = models.DateTimeField(auto_now_add=True)
     favorito = models.BooleanField(default=False)
     status_leitura = models.CharField(max_length=20, choices=StatusLeitura.choices)
+
+    objects = BibliotecaManager()
 
     def __str__(self):
         return f'{self.usuario.username} - {self.livro.titulo}'

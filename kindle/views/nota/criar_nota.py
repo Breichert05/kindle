@@ -39,5 +39,5 @@ class NotaCreateView(LoginRequiredMixin, CreateView):
 
     def get_success_url(self):
         return reverse_lazy(
-            "minha_biblioteca"
+            "biblioteca_list"
         )

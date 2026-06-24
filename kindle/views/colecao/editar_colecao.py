@@ -2,10 +2,11 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.views.generic import UpdateView
 
+from kindle.mixins import BootstrapFormMixin
 from kindle.models import Colecao
 
 
-class ColecaoUpdateView(LoginRequiredMixin, UpdateView):
+class ColecaoUpdateView(BootstrapFormMixin, LoginRequiredMixin, UpdateView):
     model = Colecao
     template_name = "colecao/update.html"
     fields = ["nome", "descricao", "livros"]

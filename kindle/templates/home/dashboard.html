@@ -1,0 +1,76 @@
+<div class="container mt-4">
+    <div class="row g-4">
+
+        <div class="col-lg-6">
+            <div class="card shadow-sm h-100">
+                <div class="card-header bg-danger text-white">
+                    <h5 class="mb-0">
+                        <i class="bi bi-heart-fill"></i>
+                        Livros Favoritos
+                    </h5>
+                </div>
+
+                <div class="card-body">
+                    {% if favoritos %}
+                        <div class="list-group list-group-flush">
+                            {% for item in favoritos %}
+                                <a href="{% url 'livro_read' item.livro.id %}"
+                                   class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+
+                                    <div>
+                                        <strong>{{ item.livro.titulo }}</strong>
+                                        <br>
+                                        <small class="text-muted">
+                                            {{ item.livro.autor }}
+                                        </small>
+                                    </div>
+
+                                    <i class="bi bi-heart-fill text-danger"></i>
+                                </a>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <div class="alert alert-light border mb-0">
+                            Nenhum livro favorito encontrado.
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-6">
+            <div class="card shadow-sm h-100">
+                <div class="card-header bg-success text-white">
+                    <h5 class="mb-0">
+                        <i class="bi bi-clock-history"></i>
+                        Histórico de Leitura
+                    </h5>
+                </div>
+
+                <div class="card-body">
+                    {% if historico %}
+                        <div class="list-group list-group-flush">
+                            {% for item in historico %}
+                                <a href="{% url 'livro_read' item.livro.id %}"
+                                   class="list-group-item list-group-item-action">
+
+                                    <strong>{{ item.livro.titulo }}</strong>
+                                    <br>
+
+                                    <small class="text-muted">
+                                        {{ item.livro.autor }}
+                                    </small>
+                                </a>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <div class="alert alert-light border mb-0">
+                            Nenhum livro concluído ainda.
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

@@ -2,10 +2,11 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.views.generic import CreateView
 
+from kindle.mixins import BootstrapFormMixin
 from kindle.models import Colecao
 
 
-class ColecaoCreateView(LoginRequiredMixin, CreateView):
+class ColecaoCreateView(BootstrapFormMixin, LoginRequiredMixin, CreateView):
     model = Colecao
     template_name = "colecao/create.html"
     fields = ["nome", "descricao", "livros"]

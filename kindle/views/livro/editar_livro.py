@@ -2,10 +2,11 @@ from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.urls import reverse_lazy
 from django.views.generic import UpdateView
 
+from kindle.mixins import BootstrapFormMixin
 from kindle.models import Livro
 
 
-class LivroUpdateView(PermissionRequiredMixin, UpdateView):
+class LivroUpdateView(BootstrapFormMixin, PermissionRequiredMixin, UpdateView):
     model = Livro
     template_name = 'livros/form.html'
     fields = [

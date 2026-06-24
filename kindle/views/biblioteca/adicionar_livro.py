@@ -4,10 +4,11 @@ from django.urls import reverse_lazy
 from django.views.generic import CreateView
 
 from kindle.enums import StatusLeitura
+from kindle.mixins import BootstrapFormMixin
 from kindle.models import BibliotecaUsuario, Livro
 
 
-class BibliotecaUsuarioCreateView(LoginRequiredMixin, CreateView):
+class BibliotecaUsuarioCreateView(BootstrapFormMixin, LoginRequiredMixin, CreateView):
     model = BibliotecaUsuario
     fields = []
     template_name = "biblioteca/create.html"

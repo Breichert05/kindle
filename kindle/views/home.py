@@ -1,7 +1,8 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import TemplateView
 
-from kindle.models import BibliotecaUsuario, Colecao, Nota, MetaLeitura
+from kindle.enums import StatusLeitura
+from kindle.models import BibliotecaUsuario
 
 
 class IndexView(LoginRequiredMixin, TemplateView):
@@ -10,26 +11,24 @@ class IndexView(LoginRequiredMixin, TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        context["total_livros"] = BibliotecaUsuario.objects.filter(
-            usuario=self.request.user
-        ).count()
+        context["favoritos"] = (
+            BibliotecaUsuario.objects
+            .filter(
+                usuario=self.request.user,
+                favorito=True
+            )
+            .select_related("livro")
+            .order_by("livro__titulo")
+        )
 
-        context["total_colecoes"] = Colecao.objects.filter(
-            usuario=self.request.user
-        ).count()
-
-        context["total_notas"] = Nota.objects.filter(
-            usuario=self.request.user
-        ).count()
-
-        context["total_lidos"] = BibliotecaUsuario.objects.filter(
-            usuario=self.request.user,
-            status_leitura="LIDO"
-        ).count()
-
-        context["metas_ativas"] = MetaLeitura.objects.filter(
-            usuario=self.request.user,
-            concluida=False
-        ).count()
+        context["historico"] = (
+            BibliotecaUsuario.objects
+            .filter(
+                usuario=self.request.user,
+                status_leitura=StatusLeitura.LIDO
+            )
+            .select_related("livro")
+            .order_by("-id")
+        )
 
         return context

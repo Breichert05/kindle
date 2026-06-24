@@ -3,10 +3,11 @@ from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import CreateView
 
+from kindle.mixins import BootstrapFormMixin
 from kindle.models import Avaliacao, Livro
 
 
-class AvaliacaoCreateView(LoginRequiredMixin, CreateView):
+class AvaliacaoCreateView(BootstrapFormMixin, LoginRequiredMixin, CreateView):
     model = Avaliacao
     template_name = 'avaliacao/form.html'
     fields = ['nota', 'comentario']

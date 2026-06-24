@@ -2,10 +2,11 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import redirect
 from django.views.generic import UpdateView
 
+from kindle.mixins import BootstrapFormMixin
 from kindle.models import BibliotecaUsuario
 
 
-class BibliotecaUsuarioUpdateView(LoginRequiredMixin, UpdateView):
+class BibliotecaUsuarioUpdateView(BootstrapFormMixin, LoginRequiredMixin, UpdateView):
     model = BibliotecaUsuario
     fields = ["status_leitura", "favorito"]
 

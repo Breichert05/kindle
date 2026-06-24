@@ -48,6 +48,7 @@ from kindle.views.nota.deletar_notas import NotaDeleteView
 from kindle.views.nota.detalhar_nota import NotaReadView
 from kindle.views.nota.editar_notas import NotaUpdateView
 from kindle.views.nota.listar_notas import NotaListView
+from kindle.views.relatorio.leitura import RelatorioLeituraView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -64,7 +65,6 @@ urlpatterns = [
     path('biblioteca/create/<int:pk>/', BibliotecaUsuarioCreateView.as_view(), name='biblioteca_create'),
     path('biblioteca/update/<int:pk>/', BibliotecaUsuarioUpdateView.as_view(), name='biblioteca_update'),
     path('biblioteca/delete/<int:pk>/', BibliotecaUsuarioDeleteView.as_view(), name='biblioteca_delete'),
-    # path('biblioteca/historico/', HistoricoLeituraView.as_view(), name='historico_leitura'),
 
     path('colecao/', ColecaoListView.as_view(), name='colecao_list'),
     path('colecao/create/', ColecaoCreateView.as_view(), name='colecao_create'),
@@ -87,6 +87,8 @@ urlpatterns = [
     path('avaliacoes/create/<int:pk>/', AvaliacaoCreateView.as_view(), name='avaliacao_create'),
     path('avaliacoes/update/<int:pk>/', AvaliacaoUpdateView.as_view(), name='avaliacao_update'),
     path('avaliacoes/delete/<int:pk>/', AvaliacaoDeleteView.as_view(), name='avaliacao_delete'),
+
+    path('relatorio/leitura/', RelatorioLeituraView.as_view(), name='relatorio_leitura'),
 ]
 
 urlpatterns += static(

@@ -8,9 +8,15 @@ class LivroManager(models.Manager):
         return self.filter(ativo=True)
 
     def por_genero(self, genero):
-        return self.ativos().filter(genero=genero)
+        return self.filter(genero=genero)
 
-    def buscar(self, termo=None, genero=None):
+    def buscar(
+        self,
+        termo=None,
+        genero=None,
+        preco_min=None,
+        preco_max=None
+    ):
         queryset = self.ativos()
 
         if termo:
@@ -20,6 +26,18 @@ class LivroManager(models.Manager):
             )
 
         if genero:
-            queryset = queryset.filter(genero=genero)
+            queryset = queryset.filter(
+                genero=genero
+            )
+
+        if preco_min:
+            queryset = queryset.filter(
+                preco__gte=preco_min
+            )
+
+        if preco_max:
+            queryset = queryset.filter(
+                preco__lte=preco_max
+            )
 
         return queryset

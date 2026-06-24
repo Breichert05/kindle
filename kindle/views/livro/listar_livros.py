@@ -1,6 +1,7 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import ListView
 
+from kindle.enums import GeneroLivro
 from kindle.models import Livro, BibliotecaUsuario
 
 
@@ -19,7 +20,9 @@ class AcervoListView(LoginRequiredMixin, ListView):
 
         livros = Livro.objects.buscar(
             termo=self.request.GET.get("q"),
-            genero=self.request.GET.get("genero")
+            genero=self.request.GET.get("genero"),
+            preco_min=self.request.GET.get("preco_min"),
+            preco_max=self.request.GET.get("preco_max")
         )
 
         livros = list(livros)
@@ -29,3 +32,10 @@ class AcervoListView(LoginRequiredMixin, ListView):
             livro.biblioteca_id = bibliotecas.get(livro.id)
 
         return livros
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        context["generos"] = GeneroLivro.choices
+
+        return context

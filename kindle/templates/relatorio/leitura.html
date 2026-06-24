@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Relatório de Leitura
+{% endblock %}
+
+{% block content %}
+<div class="container">
+
+    <div class="row g-3 mb-4">
+
+        <div class="col-md-3">
+            <div class="card text-center h-100">
+                <div class="card-body">
+                    <h2>{{ total_livros }}</h2>
+                    <p class="mb-0">Livros na Biblioteca</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card text-center h-100">
+                <div class="card-body">
+                    <h2>{{ total_lidos }}</h2>
+                    <p class="mb-0">Livros Lidos</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card text-center h-100">
+                <div class="card-body">
+                    <h2>{{ total_favoritos }}</h2>
+                    <p class="mb-0">Favoritos</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card text-center h-100">
+                <div class="card-body">
+                    <h2>{{ metas_ativas }}</h2>
+                    <p class="mb-0">Metas Ativas</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row g-3">
+
+        <div class="col-md-4">
+            <div class="card h-100">
+                <div class="card-header">
+                    Coleções
+                </div>
+                <div class="card-body text-center">
+                    <h3>{{ total_colecoes }}</h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card h-100">
+                <div class="card-header">
+                    Notas
+                </div>
+                <div class="card-body text-center">
+                    <h3>{{ total_notas }}</h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card h-100">
+                <div class="card-header">
+                    Avaliações
+                </div>
+                <div class="card-body text-center">
+                    <h3>{{ total_avaliacoes }}</h3>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+{% endblock %}

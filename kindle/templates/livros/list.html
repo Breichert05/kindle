@@ -5,18 +5,63 @@
 {% block content %}
 <div class="container mt-4">
     <form method="get" class="row g-2 mb-4">
-        <div class="col-md-5">
-            <input type="text" name="q" value="{{ request.GET.q }}" class="form-control" placeholder="Buscar por título ou autor">
+        <div class="col-md-3">
+            <input
+                type="text"
+                name="q"
+                value="{{ request.GET.q }}"
+                class="form-control"
+                placeholder="Título ou autor"
+            >
         </div>
-
-        <div class="col-md-2 d-grid">
-            <button type="submit" class="btn btn-primary">Filtrar</button>
+        <div class="col-md-2">
+            <select name="genero" class="form-select">
+                <option value="">Todos os gêneros</option>
+                {% for value, label in generos %}
+                    <option
+                        value="{{ value }}"
+                        {% if request.GET.genero == value %}
+                            selected
+                        {% endif %}
+                    >
+                        {{ label }}
+                    </option>
+                {% endfor %}
+            </select>
         </div>
-        {% if perms.kindle.add_livro %}
-            <div class="col-md-2 d-grid">
-                <a href="{% url 'livro_create' %}" class="btn btn-success">Novo livro</a>
-            </div>
-        {% endif %}
+        <div class="col-md-2">
+            <input
+                type="number"
+                step="0.01"
+                name="preco_min"
+                value="{{ request.GET.preco_min }}"
+                class="form-control"
+                placeholder="Preço mín."
+            >
+        </div>
+        <div class="col-md-2">
+            <input
+                type="number"
+                step="0.01"
+                name="preco_max"
+                value="{{ request.GET.preco_max }}"
+                class="form-control"
+                placeholder="Preço máx."
+            >
+        </div>
+        <div class="col-md-3 d-flex gap-2">
+            <button type="submit" class="btn btn-primary flex-fill">
+                Filtrar
+            </button>
+            <a href="{% url 'acervo' %}" class="btn btn-outline-secondary">
+                Limpar
+            </a>
+            {% if perms.kindle.add_livro %}
+                <a href="{% url 'livro_create' %}" class="btn btn-success">
+                    Novo
+                </a>
+            {% endif %}
+        </div>
     </form>
     {% if livros %}
         <div class="d-flex overflow-auto gap-3 pb-3">

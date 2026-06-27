@@ -23,21 +23,11 @@
                 {{ campo }}
             </div>
         {% endfor %}
-        <input
-            type="hidden"
-            name="next"
-            value="{{ next }}"
-        >
-        <button
-            type="submit"
-            class="btn btn-primary"
-        >
+        <input type="hidden" name="next" value="{{ next }}">
+        <button type="submit" class="btn btn-primary">
             Entrar
         </button>
-        <a
-            class="btn btn-secondary"
-            href="{% url 'password_reset' %}"
-        >
+        <a class="btn btn-secondary" href="{% url 'password_reset' %}">
             Esqueci minha senha
         </a>
     </form>

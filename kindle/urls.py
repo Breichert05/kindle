@@ -28,6 +28,7 @@ from kindle.views.colecao.deletar_colecao import ColecaoDeleteView
 from kindle.views.colecao.detalhar_colecao import ColecaoReadView
 from kindle.views.colecao.editar_colecao import ColecaoUpdateView
 from kindle.views.colecao.listar_colecoes import ColecaoListView
+from kindle.views.historico.listar_historico import HistoricoListView
 from kindle.views.livro.criar_livro import LivroCreateView
 from kindle.views.livro.deletar_livro import LivroDeleteView
 from kindle.views.livro.editar_livro import LivroUpdateView
@@ -89,6 +90,8 @@ urlpatterns = [
     path('avaliacoes/delete/<int:pk>/', AvaliacaoDeleteView.as_view(), name='avaliacao_delete'),
 
     path('relatorio/leitura/', RelatorioLeituraView.as_view(), name='relatorio_leitura'),
+
+    path("historico/", HistoricoListView.as_view(), name="historico_list"),
 ]
 
 urlpatterns += static(

@@ -5,5 +5,17 @@
 {% endblock %}
 
 {% block content %}
+
+<div class="container mt-4">
+    <div class="mb-4">
+        <h3>
+            Olá, {{ user.username }}
+        </h3>
+        <p class="text-muted">
+            Acompanhe sua leitura e organize sua biblioteca digital.
+        </p>
+    </div>
     {% include "home/dashboard.html" %}
+</div>
+
 {% endblock %}
